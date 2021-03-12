@@ -1,2 +1,2 @@
-
+my_simulations
 -DCATKIN_DEVEL_PREFIX=/home/samy/ectdrone/devel -DCMAKE_INSTALL_PREFIX=/home/samy/ectdrone/install -G Unix Makefiles

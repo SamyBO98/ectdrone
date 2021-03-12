@@ -35,3 +35,11 @@
 /home/samy/ectdrone/build/gtest/googlemock/gtest/CMakeFiles/list_install_components.dir
 /home/samy/ectdrone/build/gtest/googlemock/gtest/CMakeFiles/gtest.dir
 /home/samy/ectdrone/build/gtest/googlemock/gtest/CMakeFiles/rebuild_cache.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/install/strip.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/install/local.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/test.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/list_install_components.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/edit_cache.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/_catkin_empty_exported_target.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/rebuild_cache.dir
+/home/samy/ectdrone/build/my_simulations/CMakeFiles/install.dir
