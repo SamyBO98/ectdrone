@@ -1,4 +1,4 @@
-prefix=/home/samy/ectdrone/devel
+prefix=/home/otman/Desktop/mifpom/ectdrone/devel
 
 Name: my_simulations
 Description: Description of my_simulations
