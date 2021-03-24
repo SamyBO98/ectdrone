@@ -84,6 +84,25 @@ class Board:
             for y in range(self.columns):
                 print('Case', [x, y], self.board[x][y].toString())
 
+    def idString(self):
+        for x in range(self.lines):
+            line = ""
+            for y in range(self.columns):
+                line = line + self.board[x][y].idString() + " "
+            print(line)
+
 
     ##################################################################################
     #######################             FUNCTIONS              #######################
+
+    # give number of cases for each drone
+    def shareCasesForEachDrone(self, drones):
+        nbCases = self.lines * self.columns
+        casesForEachDrone = nbCases / drones.getNbDrones()
+        for i in range(drones.getNbDrones()):
+            drones.getDrone(i).setNbCases(casesForEachDrone)
+
+        for i in range(nbCases % drones.getNbDrones()):
+            drones.getDrone(i).setNbCases(drones.getDrone(i).getNbCases() + 1)
+
+

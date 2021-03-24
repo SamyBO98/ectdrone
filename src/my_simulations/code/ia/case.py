@@ -14,6 +14,7 @@ class Case:
         self.center = coordinate
         self.zone = zone
         self.visited = False
+        self.idDrone = -1
 
 
     ##################################################################################
@@ -31,6 +32,10 @@ class Case:
     def isVisited(self):
         return self.visited
 
+    # Get id drone (int)
+    def getIdDrone(self):
+        return self.idDrone
+
 
     ##################################################################################
     #######################              SETTERS               #######################
@@ -47,12 +52,22 @@ class Case:
     def setVisited(self, visited):
         self.visited = visited
 
+    # Set id drone (int)
+    def setIdDrone(self, idDrone):
+        self.idDrone = idDrone
+
 
     ##################################################################################
     #######################       CLASS STRING FOR DEBUG       #######################
 
     def toString(self):
         return self.center.toString(), self.zone.toString(), self.visited
+
+    def idString(self):
+        if self.idDrone == -1:
+            return '-'
+        else:
+            return self.idDrone
 
 
     ##################################################################################
