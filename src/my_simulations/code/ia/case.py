@@ -13,7 +13,6 @@ class Case:
     def __init__(self, coordinate, zone):
         self.center = coordinate
         self.zone = zone
-        self.visited = False
         self.idDrone = -1
 
 
@@ -27,10 +26,6 @@ class Case:
     # Get Zone (Zone class)
     def getZone(self):
         return self.zone
-
-    # Get Visited (bool)
-    def isVisited(self):
-        return self.visited
 
     # Get id drone (int)
     def getIdDrone(self):
@@ -48,10 +43,6 @@ class Case:
     def setZone(self, zone):
         self.zone = zone
 
-    # Set Visited (bool)
-    def setVisited(self, visited):
-        self.visited = visited
-
     # Set id drone (int)
     def setIdDrone(self, idDrone):
         self.idDrone = idDrone
@@ -61,7 +52,7 @@ class Case:
     #######################       CLASS STRING FOR DEBUG       #######################
 
     def toString(self):
-        return self.center.toString(), self.zone.toString(), self.visited
+        return self.center.toString(), self.zone.toString(), str(self.idDrone)
 
     def idString(self):
         if self.idDrone == -1:

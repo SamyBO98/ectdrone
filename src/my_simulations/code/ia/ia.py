@@ -49,3 +49,5 @@ if __name__ == "__main__":
 
     # starting to create a way for each drone to capture the zone
     tree = Tree.QuartenaireTree(boardDrone, dronesFromGazebo, EnumMovement.Movement.NONE, 0)
+    tree.generateTree()
+    boardDrone.idString()

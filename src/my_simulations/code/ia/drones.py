@@ -60,6 +60,7 @@ class Drones:
     def haveTheirWays(self):
         for i in range(self.nbDrones):
             if (self.drones[i].getNbCases() != self.drones[i].getCasesReach()):
+                #print("Drone", i)
                 return i
         return -1
 
