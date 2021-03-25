@@ -39,7 +39,7 @@ class Drones:
 
     def toString(self):
         for i in range(self.nbDrones):
-            self.drones[i].toString()
+            print(self.drones[i].toString())
 
     def coordinatesString(self):
         for i in range(self.nbDrones):

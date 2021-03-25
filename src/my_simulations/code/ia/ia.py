@@ -50,4 +50,11 @@ if __name__ == "__main__":
     # starting to create a way for each drone to capture the zone
     tree = Tree.QuartenaireTree(boardDrone, dronesFromGazebo, EnumMovement.Movement.NONE, 0)
     tree.generateTree()
-    boardDrone.idString()
+    #boardDrone.idString()
+
+    bestWay = tree.getBestWay()
+    print("==============================")
+    bestWay[0].idString()
+    bestWay[1].toString()
+    print("Number of movements:", bestWay[2])
+    print("==============================")

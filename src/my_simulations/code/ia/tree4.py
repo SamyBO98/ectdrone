@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import movement as EnumMovement
 import copy
+from operator import attrgetter, itemgetter
 
 class QuartenaireTree:
 
@@ -20,13 +21,14 @@ class QuartenaireTree:
         self.drones = drones
         self.movement = movement
         self.nbMovement = nbMovement
-        # best way
-        self.bestWay = None
         # nodes
         self.nodeUp = None
         self.nodeDown = None
         self.nodeLeft = None
         self.nodeRight = None
+
+    def __repr__(self):
+        return repr((self.board, self.drones, self.nbMovement))
 
     ##################################################################################
     #######################              GETTERS               #######################
@@ -65,13 +67,15 @@ class QuartenaireTree:
     #######################       CLASS STRING FOR DEBUG       #######################
 
     def toString(self):
-        return False
+        print("=======================================")
+        self.board.idString()
+        print("Total amount of movements:", self.nbMovement())
+        print("=======================================")
 
     ##################################################################################
     #######################             FUNCTIONS              #######################
 
     # biggest function
-
     def generateTree(self):
         # check if all drones have their ways (-1 means OK, a number between 0 and number of drones - 1 means NOT OK)
         indexDrone = self.drones.haveTheirWays()
@@ -93,14 +97,16 @@ class QuartenaireTree:
                     indexDrone), EnumMovement.Movement.LEFT, localMovement, indexDrone)
                 # check if not the same movement: increase number of moves done
                 if localMovement != EnumMovement.Movement.LEFT:
+                    #print("NOT SAME MOVEMENT:", localMovement, "<->", localCurrentMovement)
                     localNbMovement = localNbMovement + 1
                 # reset movement if that was last move
                 if localDrones.getDrone(indexDrone).isReached():
-                    localMovement = EnumMovement.Movement.NONE
+                    localCurrentMovement = EnumMovement.Movement.NONE
                 # create node
                 self.nodeLeft = QuartenaireTree(
-                    localBoard, localDrones, localMovement, localNbMovement)
+                    localBoard, localDrones, localCurrentMovement, localNbMovement)
                 #localBoard.idString()
+                #print("NUMBER OF MOVEMENTS:", localNbMovement)
                 self.nodeLeft.generateTree()
 
             # RIGHT
@@ -116,14 +122,16 @@ class QuartenaireTree:
                     indexDrone), localCurrentMovement, localMovement, indexDrone)
                 # check if same movement: increase number of moves done
                 if localMovement != localCurrentMovement:
+                    #print("NOT SAME MOVEMENT:", localMovement, "<->", localCurrentMovement)
                     localNbMovement = localNbMovement + 1
                 # reset movement if that was last move
                 if localDrones.getDrone(indexDrone).isReached():
-                    localMovement = EnumMovement.Movement.NONE
+                    localCurrentMovement = EnumMovement.Movement.NONE
                 # create node
                 self.nodeRight = QuartenaireTree(
-                    localBoard, localDrones, localMovement, localNbMovement)
+                    localBoard, localDrones, localCurrentMovement, localNbMovement)
                 #localBoard.idString()
+                #print("NUMBER OF MOVEMENTS:", localNbMovement)
                 self.nodeRight.generateTree()
                 
 
@@ -140,14 +148,16 @@ class QuartenaireTree:
                     indexDrone), localCurrentMovement, localMovement, indexDrone)
                 # check if same movement: increase number of moves done
                 if localMovement != localCurrentMovement:
+                    #print("NOT SAME MOVEMENT:", localMovement, "<->", localCurrentMovement)
                     localNbMovement = localNbMovement + 1
                 # reset movement if that was last move
                 if localDrones.getDrone(indexDrone).isReached():
-                    localMovement = EnumMovement.Movement.NONE
+                    localCurrentMovement = EnumMovement.Movement.NONE
                 # create node
                 self.nodeUp = QuartenaireTree(
-                    localBoard, localDrones, localMovement, localNbMovement)
+                    localBoard, localDrones, localCurrentMovement, localNbMovement)
                 #localBoard.idString()
+                #print("NUMBER OF MOVEMENTS:", localNbMovement)
                 self.nodeUp.generateTree()
                 
 
@@ -164,16 +174,57 @@ class QuartenaireTree:
                     indexDrone), localCurrentMovement, localMovement, indexDrone)
                 # check if same movement: increase number of moves done
                 if localMovement != localCurrentMovement:
+                    #print("NOT SAME MOVEMENT:", localMovement, "<->", localCurrentMovement)
                     localNbMovement = localNbMovement + 1
                 # reset movement if that was last move
                 if localDrones.getDrone(indexDrone).isReached():
-                    localMovement = EnumMovement.Movement.NONE
+                    localCurrentMovement = EnumMovement.Movement.NONE
                 # create node
                 self.nodeDown = QuartenaireTree(
-                    localBoard, localDrones, localMovement, localNbMovement)
+                    localBoard, localDrones, localCurrentMovement, localNbMovement)
                 #localBoard.idString()
+                #print("NUMBER OF MOVEMENTS:", localNbMovement)
                 self.nodeDown.generateTree()
                 
         else:
             self.board.idString()
             print("NUMBER OF MOVEMENTS:", self.nbMovement)
+
+    # get best way
+    def getBestWay(self):
+        # if -1: means that it's a way: returns it
+        if self.drones.haveTheirWays() == -1:
+            return (self.board, self.drones, self.nbMovement)
+        else:
+            # we took the best way for each node
+            bestWayLeft = None
+            bestWayRight = None
+            bestWayUp = None
+            bestWayDown = None
+            ways = []
+            if self.nodeLeft != None:
+                bestWayLeft = self.nodeLeft.getBestWay()
+                if bestWayLeft != None:
+                    ways.append((bestWayLeft[0], bestWayLeft[1], bestWayLeft[2]))
+            if self.nodeRight != None:
+                bestWayRight = self.nodeRight.getBestWay()
+                if bestWayRight != None:
+                    ways.append((bestWayRight[0], bestWayRight[1], bestWayRight[2]))
+            if self.nodeUp != None:
+                bestWayUp = self.nodeUp.getBestWay()
+                if bestWayUp != None:
+                    ways.append((bestWayUp[0], bestWayUp[1], bestWayUp[2]))
+            if self.nodeDown != None:
+                bestWayDown = self.nodeDown.getBestWay()
+                if bestWayDown != None:
+                    ways.append((bestWayDown[0], bestWayDown[1], bestWayDown[2]))
+
+            #print(ways)
+
+            # we affect to bestWay the way with less movements
+            if ways == []:
+                return None
+            else:
+                return sorted(ways, key=lambda way: way[2])[0]
+        
+

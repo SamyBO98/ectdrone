@@ -51,7 +51,12 @@ class Drone:
     #######################       CLASS STRING FOR DEBUG       #######################
 
     def toString(self):
-        print("Number of cases: ", self.nbCases)
+        resCoordinates = ""
+        resIndex = ""
+        for i in range(len(self.coordinatesToReach)):
+            resCoordinates = resCoordinates, i, self.coordinatesToReach[i].toString()
+            resIndex = resIndex, i, self.indexBoardToReach[i]
+        return 'Cases affected:', self.nbCases,"- coordinates:", resCoordinates, "- indexes:", resIndex 
 
     def coordinatesString(self, i):
         return self.coordinatesToReach[i].toString()
