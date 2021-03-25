@@ -67,7 +67,7 @@ class Case:
         if self.idDrone == -1:
             return '-'
         else:
-            return self.idDrone
+            return str(self.idDrone)
 
 
     ##################################################################################

@@ -2,6 +2,7 @@
 import math
 import case as Case
 import coordinates as Coordinates
+import movement as EnumMovement
 class Board:
 
     ##################################################################################
@@ -104,5 +105,83 @@ class Board:
 
         for i in range(nbCases % drones.getNbDrones()):
             drones.getDrone(i).setNbCases(drones.getDrone(i).getNbCases() + 1)
+
+    # give first coordinates for each drone
+    def firstCoordinatesForEachDrone(self, drones):
+        for i in range(drones.getNbDrones()):
+            bestCoordinates = [0, 0]
+            bestVector = drones.getDrone(i).getCoordinates().getVector(self.board[0][0].getCenter())
+            for x in range(self.lines):
+                for y in range(self.columns):
+                    vector = drones.getDrone(i).getCoordinates().getVector(self.board[x][y].getCenter())
+                    #print("Drone", i, "- vector:", vector, "- best:", bestVector)
+                    if (vector < bestVector) and (self.board[x][y].getIdDrone() == -1):
+                        bestVector = vector
+                        bestCoordinates = [x, y]
+            # we supposed that the drone have his best coordinates
+            #print("[FINAL] Drone", i, "- best:", bestVector, "- coordinates:", bestCoordinates)
+            #print(self.board[bestCoordinates[0]][bestCoordinates[1]].getCenter().toString())
+            drones.getDrone(i).addCoordinatesToReach(self.board[bestCoordinates[0]][bestCoordinates[1]].getCenter())
+            drones.getDrone(i).addIndexToReach([bestCoordinates[0], bestCoordinates[1]])
+            drones.getDrone(i).addCaseReached()
+            self.board[bestCoordinates[0]][bestCoordinates[1]].setIdDrone(i)
+
+    # says if it's possible to move on a way: if yes, edit it
+    def moveDroneOnANotherWayIfPossible(self, indexDrone, idDrone, drone, nbMovement, movement, basicMovement):
+        if movement == EnumMovement.Movement.LEFT:
+            if self.columns > 0 and self.board[indexDrone[0]][indexDrone[1] - 1].getIdDrone() == -1:
+                self.board[indexDrone[0]][indexDrone[1] - 1].setIdDrone(idDrone)
+                drone.addCaseReached()
+                if movement != basicMovement:
+                    nbMovement = nbMovement + 1
+                    drone.addCoordinatesToReach(self.board[indexDrone[0]][indexDrone[1] - 1].getCenter())
+                    drone.addIndexToReach([indexDrone[0], indexDrone[1] - 1])
+                else:
+                    drone.updateLastCoordinateReached(self.board[indexDrone[0]][indexDrone[1] - 1].getCenter())
+                    drone.updateLastIndexReached([indexDrone[0], indexDrone[1] - 1])
+                return True
+
+        elif movement == EnumMovement.Movement.RIGHT:
+            if self.columns > indexDrone[1] and self.board[indexDrone[0]][indexDrone[1] + 1].getIdDrone() == -1:
+                self.board[indexDrone[0]][indexDrone[1] + 1].setIdDrone(idDrone)
+                drone.addCaseReached()
+                if movement != basicMovement:
+                    nbMovement = nbMovement + 1
+                    drone.addCoordinatesToReach(self.board[indexDrone[0]][indexDrone[1] + 1].getCenter())
+                    drone.addIndexToReach([indexDrone[0], indexDrone[1] + 1])
+                else:
+                    drone.updateLastCoordinateReached(self.board[indexDrone[0]][indexDrone[1] + 1].getCenter())
+                    drone.updateLastIndexReached([indexDrone[0], indexDrone[1] + 1])
+                return True
+
+        elif movement == EnumMovement.Movement.UP:
+            if self.lines > 0 and self.board[indexDrone[0] - 1][indexDrone[1]].getIdDrone() == -1:
+                self.board[indexDrone[0] - 1][indexDrone[1]].setIdDrone(idDrone)
+                drone.addCaseReached()
+                if movement != basicMovement:
+                    nbMovement = nbMovement + 1
+                    drone.addCoordinatesToReach(self.board[indexDrone[0] - 1][indexDrone[1]].getCenter())
+                    drone.addIndexToReach([indexDrone[0] - 1, indexDrone[1]])
+                else:
+                    drone.updateLastCoordinateReached(self.board[indexDrone[0] - 1][indexDrone[1]].getCenter())
+                    drone.updateLastIndexReached([indexDrone[0] - 1, indexDrone[1]])
+                return True
+
+        elif movement == EnumMovement.Movement.DOWN:
+            if self.lines > indexDrone[0] and self.board[indexDrone[0] + 1][indexDrone[1]].getIdDrone() == -1:
+                self.board[indexDrone[0] + 1][indexDrone[1]].setIdDrone(idDrone)
+                drone.addCaseReached()
+                if movement != basicMovement:
+                    nbMovement = nbMovement + 1
+                    drone.addCoordinatesToReach(self.board[indexDrone[0] + 1][indexDrone[1]].getCenter())
+                    drone.addIndexToReach([indexDrone[0] + 1, indexDrone[1]])
+                else:
+                    drone.updateLastCoordinateReached(self.board[indexDrone[0] + 1][indexDrone[1]].getCenter())
+                    drone.updateLastIndexReached([indexDrone[0] + 1, indexDrone[1]])
+                return True
+        return False
+
+
+
 
 

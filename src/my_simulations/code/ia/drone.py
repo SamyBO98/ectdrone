@@ -15,6 +15,7 @@ class Drone:
         self.nbCases = 0
         self.casesReached = 0
         self.coordinatesToReach = []
+        self.indexBoardToReach = []
 
 
     ##################################################################################
@@ -29,8 +30,11 @@ class Drone:
     def getCasesReach(self):
         return self.casesReached
 
-    def coordinatesToReach(self):
+    def getCoordinatesToReach(self):
         return self.coordinatesToReach
+
+    def getIndexBoardToReach(self):
+        return self.indexBoardToReach
 
 
     ##################################################################################
@@ -49,6 +53,12 @@ class Drone:
     def toString(self):
         print("Number of cases: ", self.nbCases)
 
+    def coordinatesString(self, i):
+        return self.coordinatesToReach[i].toString()
+
+    def indexString(self, i):
+        return self.indexBoardToReach[i]
+
 
     ##################################################################################
     #######################             FUNCTIONS              #######################
@@ -61,3 +71,24 @@ class Drone:
 
     def addCoordinatesToReach(self, coordinates):
         self.coordinatesToReach.append(coordinates)
+
+    def sizeCoordinatesToReach(self):
+        return len(self.coordinatesToReach)
+
+    def getLastCoordinateReached(self):
+        return self.coordinatesToReach[-1]
+
+    def updateLastCoordinateReached(self, coordinates):
+        self.coordinatesToReach[-1] = coordinates
+
+    def addIndexToReach(self, index):
+        self.indexBoardToReach.append(index)
+
+    def sizeIndexToReach(self):
+        return len(self.indexBoardToReach)
+
+    def getLastIndexReached(self):
+        return self.indexBoardToReach[-1]
+
+    def updateLastIndexReached(self, index):
+        self.indexBoardToReach[-1] = index

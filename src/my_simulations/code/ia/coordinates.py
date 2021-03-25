@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from math import *
 class Coordinates:
 
     ##################################################################################
@@ -48,3 +49,6 @@ class Coordinates:
 
     ##################################################################################
     #######################             FUNCTIONS              #######################
+
+    def getVector(self, coordinates):
+        return sqrt((coordinates.getX() - self.x)**2 + (coordinates.getY() - self.y)**2)

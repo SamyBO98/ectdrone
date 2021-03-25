@@ -41,6 +41,14 @@ class Drones:
         for i in range(self.nbDrones):
             self.drones[i].toString()
 
+    def coordinatesString(self):
+        for i in range(self.nbDrones):
+            print("Drone", i, ": ", self.drones[i].coordinatesString(0))
+
+    def indexString(self):
+        for i in range(self.nbDrones):
+            print("Drone", i, ": ", self.drones[i].indexString(0))
+
 
     ##################################################################################
     #######################             FUNCTIONS              #######################
@@ -48,3 +56,12 @@ class Drones:
     def addDrone(self, drone):
         self.drones.append(drone)
         self.nbDrones = self.nbDrones + 1
+
+    def haveTheirWays(self):
+        for i in range(self.nbDrones):
+            if (self.drones[i].getNbCases() != self.drones[i].getCasesReach()):
+                return i
+        return -1
+
+    def isLastMove(self, index):
+        return self.drones[index].getCasesReach() == self.drones[index].getNbCases() - 1
