@@ -185,10 +185,3 @@ class Board:
         else:
             drone.addCoordinatesToReach(self.board[x][y].getCenter())
             drone.addIndexToReach(cos)
-        
-
-        
-
-
-
-

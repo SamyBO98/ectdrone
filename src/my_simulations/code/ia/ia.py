@@ -23,19 +23,12 @@ if __name__ == "__main__":
     # add drones
     drone1 = Drone.Drone(Coordinates.Coordinates(687, 890))
     drone2 = Drone.Drone(Coordinates.Coordinates(500, 500))
-    drone3 = Drone.Drone(Coordinates.Coordinates(-15, -32))
-    drone4 = Drone.Drone(Coordinates.Coordinates(140, 467))
-    drone5 = Drone.Drone(Coordinates.Coordinates(390, 0))
-    drone6 = Drone.Drone(Coordinates.Coordinates(-190, 267))
 
     dronesFromGazebo.addDrone(drone1)
     dronesFromGazebo.addDrone(drone2)
-    dronesFromGazebo.addDrone(drone3)
-    #dronesFromGazebo.addDrone(drone4)
-    #dronesFromGazebo.addDrone(drone5)
-    #dronesFromGazebo.addDrone(drone6)
 
-    boardDrone = Board.Board(Zone.Zone(500, 500), Zone.Zone(100, 100))
+    # create board
+    boardDrone = Board.Board(Zone.Zone(300, 300), Zone.Zone(100, 100))
     boardDrone.idString()
 
     # get for each drone number of cases
@@ -47,14 +40,25 @@ if __name__ == "__main__":
     boardDrone.idString()
     dronesFromGazebo.coordinatesString()
 
+    raw_input("Enter to continue...")
+
     # starting to create a way for each drone to capture the zone
     tree = Tree.QuartenaireTree(boardDrone, dronesFromGazebo, EnumMovement.Movement.NONE, 0)
     tree.generateTree()
     #boardDrone.idString()
 
+    raw_input("Enter to continue...")
+
+    # get the best way for drones and prints it
     bestWay = tree.getBestWay()
     print("==============================")
-    bestWay[0].idString()
-    bestWay[1].toString()
-    print("Number of movements:", bestWay[2])
+    if bestWay == None:
+        print("None...")
+    else:
+        print(drone1.toString())
+        drone1 = bestWay[1].getDrone(0)
+        print(drone1.toString())
+        #bestWay[0].idString() # map
+        #print(bestWay[1].getDrone(1).toString()) # all coordinates (and cases)
+        #print("Number of movements:", bestWay[2]) # movements count
     print("==============================")

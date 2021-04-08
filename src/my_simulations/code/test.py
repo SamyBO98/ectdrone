@@ -25,7 +25,7 @@ def start_move(v1,x1,y1,z1,duration1):
         0, 0,    # target system, target component
         mavutil.mavlink.MAV_FRAME_LOCAL_NED, # frame
         0b0000111111000111, # type_mask (only speeds enabled)
-        0, 0, 0, # x, y, z positions (not used)
+        4, 8, 16, # x, y, z positions (not used)
         x1, y1, z1, # x, y, z velocity in m/s
         0, 0, 0, # x, y, z acceleration (not supported yet, ignored in GCS_Mavlink)
         0, 0)    # yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink)
@@ -63,17 +63,17 @@ if __name__ == "__main__":
     f1.daemon = True 
     f1.start()
 
-    f2 = Thread(target=arm_and_takeoff,args=(vehicle2,5))
-    f2.daemon = True 
-    f2.start()
+    #f2 = Thread(target=arm_and_takeoff,args=(vehicle2,5))
+    #f2.daemon = True 
+    #f2.start()
     try:
         #ctrl C to end script and print Fini
         while True:
-            print 'En vol'
+            print('En vol')
             time.sleep(1.0)
     except KeyboardInterrupt:
         pass
 
-    print "Fini"
+    print('Fini')
     
 

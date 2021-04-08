@@ -226,5 +226,3 @@ class QuartenaireTree:
                 return None
             else:
                 return sorted(ways, key=lambda way: way[2])[0]
-        
-
