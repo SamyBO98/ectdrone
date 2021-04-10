@@ -19,12 +19,14 @@ from ia import movement as EnumMovement
 
 speed = 10 # meters / s
 
-def travel_vehicle_all_coordinates(vehicle, drone, indice):
+def travel_vehicle_all_coordinates(vehicle, coordinates, indice, aTargetAltitude, seconds):
     """
         Travel a drone for each coordinates he needs to travel
         (Next step: for each case reached, calculate range between drone and final position with battery to determinate if the drone continues)
     """
+    """
     for c in drone.getCoordinatesToReach():
+        
         droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
         range = c.getVector(droneCoordinates)
         timePause = range / speed
@@ -32,7 +34,17 @@ def travel_vehicle_all_coordinates(vehicle, drone, indice):
 
         point = LocationGlobalRelative(c.getX(), c.getX(), vehicle.location.global_relative_frame.alt)
         vehicle.simple_goto(point)
+        print("Velocity:", vehicle.velocity)
         time.sleep(timePause)
+    """
+
+    # just testing
+    for c in coordinates:
+        print("Drone", indice, "se dirige aux coordonnees", c, "pour", seconds, "secondes.")
+        goto_position_target_global_int(vehicle, LocationGlobalRelative(c[0], c[1], aTargetAltitude))
+        time.sleep(seconds)
+        print("Drone", indice, "est arrive aux coordonnees", vehicle.location.global_relative_frame)
+
 
     print("Drone", indice, "a termine sa mission.")
     vehicle.mode = VehicleMode("RTL")
@@ -43,7 +55,7 @@ def travel_vehicle_all_coordinates(vehicle, drone, indice):
         
 
 
-def arm_and_takeoff(vehicle, drone, indice, aTargetAltitude):
+def arm_and_takeoff(vehicle, coordinates, indice, aTargetAltitude, seconds):
     """
     Arms vehicle and fly to aTargetAltitude.
     """
@@ -71,7 +83,7 @@ def arm_and_takeoff(vehicle, drone, indice, aTargetAltitude):
     #  (otherwise the command after Vehicle.simple_takeoff will execute
     #   immediately).
     while True:
-        print(" Altitude: ", vehicle.location.global_relative_frame.alt)
+        #print(" Altitude: ", vehicle.location.global_relative_frame.alt)
         # Break and return from function just below target altitude.
         if vehicle.location.global_relative_frame.alt >= aTargetAltitude * 0.95:
             print("Reached target altitude")
@@ -79,10 +91,31 @@ def arm_and_takeoff(vehicle, drone, indice, aTargetAltitude):
             ###############################################################
             #### FONCTION QUI PARCOURT TOUTES LES COORDONNEES DU DRONE ####
             ###############################################################
-            travel_vehicle_all_coordinates(vehicle, drone, indice)
+            travel_vehicle_all_coordinates(vehicle, coordinates, indice, aTargetAltitude, seconds)
 
             break
         time.sleep(1)
+
+def goto_position_target_global_int(vehicle, aLocation):
+    """
+    Send SET_POSITION_TARGET_GLOBAL_INT command to request the vehicle fly to a specified location.
+    """
+    msg = vehicle.message_factory.set_position_target_global_int_encode(
+        0,       # time_boot_ms (not used)
+        0, 0,    # target system, target component
+        mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT_INT, # frame
+        0b0000111111111000, # type_mask (only speeds enabled)
+        aLocation.lat*1e7, # lat_int - X Position in WGS84 frame in 1e7 * meters
+        aLocation.lon*1e7, # lon_int - Y Position in WGS84 frame in 1e7 * meters
+        aLocation.alt, # alt - Altitude in meters in AMSL altitude, not WGS84 if absolute or relative, above terrain if GLOBAL_TERRAIN_ALT_INT
+        0, # X velocity in NED frame in m/s
+        0, # Y velocity in NED frame in m/s
+        0, # Z velocity in NED frame in m/s
+        0, 0, 0, # afx, afy, afz acceleration (not supported yet, ignored in GCS_Mavlink)
+        0, 0)    # yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink)
+
+    # send command to vehicle
+    vehicle.send_mavlink(msg)
 
 if __name__ == "__main__":
 
@@ -107,6 +140,7 @@ if __name__ == "__main__":
     vehicle2.groundspeed = speed
     vehicle2.groundspeed = speed
 
+    """
     # Create drones array
     dronesFromGazebo = Drones.Drones()
 
@@ -147,20 +181,27 @@ if __name__ == "__main__":
     bestWay[0].idString()
     bestWay[1].toString()
     print("Number of movements:", bestWay[2])
+    """
 
     # Launch threads
-    f1 = Thread(target=arm_and_takeoff,args=(vehicle1, drone1, 0, 10))
+    f1 = Thread(target=arm_and_takeoff,args=(vehicle1, [[-35.3632619, 149.1652000], [-35.3632619, 149.1658000], [-35.3631, 149.1655]], 0, 10, 20))
     f1.daemon = True 
     f1.start()
 
-    f2 = Thread(target=arm_and_takeoff,args=(vehicle2, drone2, 1, 15))
+    f2 = Thread(target=arm_and_takeoff,args=(vehicle2, [[-35.3632619, 149.1652000], [-35.3632619, 149.1658000], [-35.3631, 149.1655]], 1, 15, 30))
     f2.daemon = True 
     f2.start()
+    
+    """
+    arm_and_takeoff(vehicle1, [], 0, 5)
+    print("Drone 1 coordinates:", vehicle1.location.global_relative_frame)
+    goto_position_target_global_int(vehicle1, LocationGlobalRelative(-35.3632619, 149.1652000, 6))
+    """
 
     try:
         #ctrl C to end script and print Fini
         while True:
-            time.sleep(1.0)
+            time.sleep(5.0)
     except KeyboardInterrupt:
         pass
 
