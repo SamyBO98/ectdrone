@@ -19,32 +19,33 @@ from ia import movement as EnumMovement
 
 speed = 10 # meters / s
 
-def travel_vehicle_all_coordinates(vehicle, coordinates, indice, aTargetAltitude, seconds):
+def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
     """
         Travel a drone for each coordinates he needs to travel
         (Next step: for each case reached, calculate range between drone and final position with battery to determinate if the drone continues)
     """
-    """
-    for c in drone.getCoordinatesToReach():
+    
+    for c in coordinates.getCoordinatesToReach():
         
         droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
-        range = c.getVector(droneCoordinates)
-        timePause = range / speed
-        print("Drone", indice, "lui faut", timePause, "secondes pour atteindre", c.toString(),"Actuellement", droneCoordinates.toString(),"Lancement...")
+        #range = c.getVector(droneCoordinates)
+        #timePause = range / speed
+        #print("Drone", indice, "lui faut", timePause, "secondes pour atteindre", c.toString(),"Actuellement", droneCoordinates.toString(),"Lancement...")
 
-        point = LocationGlobalRelative(c.getX(), c.getX(), vehicle.location.global_relative_frame.alt)
-        vehicle.simple_goto(point)
-        print("Velocity:", vehicle.velocity)
-        time.sleep(timePause)
+        goto_position_target_global_int(vehicle, LocationGlobalRelative(c.getX(), c.getY(), vehicle.location.global_relative_frame.alt))
+        #point = LocationGlobalRelative(c.getX(), c.getY(), vehicle.location.global_relative_frame.alt)
+        #vehicle.simple_goto(point)
+        #print("Velocity:", vehicle.velocity)
+        time.sleep(20)
+    
     """
-
     # just testing
     for c in coordinates:
         print("Drone", indice, "se dirige aux coordonnees", c, "pour", seconds, "secondes.")
         goto_position_target_global_int(vehicle, LocationGlobalRelative(c[0], c[1], aTargetAltitude))
         time.sleep(seconds)
         print("Drone", indice, "est arrive aux coordonnees", vehicle.location.global_relative_frame)
-
+    """
 
     print("Drone", indice, "a termine sa mission.")
     vehicle.mode = VehicleMode("RTL")
@@ -55,7 +56,7 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice, aTargetAltitude
         
 
 
-def arm_and_takeoff(vehicle, coordinates, indice, aTargetAltitude, seconds):
+def arm_and_takeoff(vehicle, coordinates, indice, aTargetAltitude):
     """
     Arms vehicle and fly to aTargetAltitude.
     """
@@ -91,7 +92,7 @@ def arm_and_takeoff(vehicle, coordinates, indice, aTargetAltitude, seconds):
             ###############################################################
             #### FONCTION QUI PARCOURT TOUTES LES COORDONNEES DU DRONE ####
             ###############################################################
-            travel_vehicle_all_coordinates(vehicle, coordinates, indice, aTargetAltitude, seconds)
+            travel_vehicle_all_coordinates(vehicle, coordinates, indice)
 
             break
         time.sleep(1)
@@ -140,7 +141,6 @@ if __name__ == "__main__":
     vehicle2.groundspeed = speed
     vehicle2.groundspeed = speed
 
-    """
     # Create drones array
     dronesFromGazebo = Drones.Drones()
 
@@ -153,8 +153,9 @@ if __name__ == "__main__":
     dronesFromGazebo.addDrone(drone2)
 
     # Create board
-    print("Create board")
-    boardDrone = Board.Board(Zone.Zone(400, 400), Zone.Zone(100, 100))
+    boardDrone = Board.Board(Coordinates.Coordinates(-35.3632619, 149.1652000), Coordinates.Coordinates(-35.3600, 149.1655), Zone.Zone(0.00007, 0.0007))
+    boardDrone.idString()
+    boardDrone.toString()
     #boardDrone.idString()
 
     # Get for each drone number of cases to travel
@@ -181,14 +182,14 @@ if __name__ == "__main__":
     bestWay[0].idString()
     bestWay[1].toString()
     print("Number of movements:", bestWay[2])
-    """
+    
 
     # Launch threads
-    f1 = Thread(target=arm_and_takeoff,args=(vehicle1, [[-35.3632619, 149.1652000], [-35.3632619, 149.1658000], [-35.3631, 149.1655]], 0, 10, 20))
+    f1 = Thread(target=arm_and_takeoff,args=(vehicle1, drone1, 0, 10))
     f1.daemon = True 
     f1.start()
 
-    f2 = Thread(target=arm_and_takeoff,args=(vehicle2, [[-35.3632619, 149.1652000], [-35.3632619, 149.1658000], [-35.3631, 149.1655]], 1, 15, 30))
+    f2 = Thread(target=arm_and_takeoff,args=(vehicle2, drone2, 1, 15))
     f2.daemon = True 
     f2.start()
     
