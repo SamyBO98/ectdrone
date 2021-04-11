@@ -17,20 +17,22 @@ import movement as EnumMovement
 ################################################################
 if __name__ == "__main__":
 
+    # create board
+    boardDrone = Board.Board(Coordinates.Coordinates(-35.3632619, 149.1652000), Coordinates.Coordinates(-35.3600, 149.1655), Zone.Zone(0.00007, 0.0007))
+    boardDrone.idString()
+    boardDrone.toString()
+
     # drones  
     dronesFromGazebo = Drones.Drones()
 
     # add drones
-    drone1 = Drone.Drone(Coordinates.Coordinates(687, 890))
-    drone2 = Drone.Drone(Coordinates.Coordinates(500, 500))
+    drone1 = Drone.Drone(Coordinates.Coordinates(98.78, 100.48))
+    drone2 = Drone.Drone(Coordinates.Coordinates(137.98, 200))
 
     dronesFromGazebo.addDrone(drone1)
     dronesFromGazebo.addDrone(drone2)
 
-    # create board
-    boardDrone = Board.Board(Zone.Zone(300, 300), Zone.Zone(100, 100))
-    boardDrone.idString()
-
+    
     # get for each drone number of cases
     boardDrone.shareCasesForEachDrone(dronesFromGazebo)
     dronesFromGazebo.toString()
@@ -55,10 +57,8 @@ if __name__ == "__main__":
     if bestWay == None:
         print("None...")
     else:
-        print(drone1.toString())
-        drone1 = bestWay[1].getDrone(0)
-        print(drone1.toString())
-        #bestWay[0].idString() # map
-        #print(bestWay[1].getDrone(1).toString()) # all coordinates (and cases)
-        #print("Number of movements:", bestWay[2]) # movements count
+        bestWay[0].idString() # map
+        print(bestWay[1].getDrone(0).toString()) # all coordinates (and cases)
+        print(bestWay[1].getDrone(1).toString()) # all coordinates (and cases)
+        print("Number of movements:", bestWay[2]) # movements count
     print("==============================")

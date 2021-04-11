@@ -14,27 +14,32 @@ class Board:
     ##################################################################################
     #######################         CLASS CONSTRUCTOR          #######################
 
-    def __init__(self, captureZone, droneZone):
-        self.captureZone = captureZone
+    def __init__(self, coordinate1, coordinate2, droneZone):
         self.droneZone = droneZone
-        self.lines = int(math.ceil(self.captureZone.getWidth() / self.droneZone.getWidth()))
-        self.columns = int(math.ceil(self.captureZone.getHeight() / self.droneZone.getHeight()))
+        width = abs(coordinate1.getX() - coordinate2.getX())
+        height = abs(coordinate1.getY() - coordinate2.getY())
+        self.lines = int(math.ceil(width / self.droneZone.getWidth()))
+        self.columns = int(math.ceil(height / self.droneZone.getHeight()))
 
         self.board = [[0 for x in range(self.columns)] for y in range(self.lines)]
         for x in range(self.lines):
             for y in range(self.columns):
-                coX = (x * droneZone.getHeight()) + (droneZone.getHeight() / 2)
-                coY = (y * droneZone.getWidth()) + (droneZone.getWidth() / 2)
+                if (coordinate1.getX() > coordinate2.getX()):
+                    coX = coordinate1.getX() - (x * droneZone.getHeight()) - (droneZone.getHeight() / 2)
+                else:
+                    coX = coordinate1.getX() + (x * droneZone.getHeight()) + (droneZone.getHeight() / 2)
+
+                if (coordinate1.getY() > coordinate2.getY()):
+                    coY = coordinate1.getY() - (y * droneZone.getWidth()) - (droneZone.getWidth() / 2)
+                else:
+                    coY = coordinate1.getY() + (y * droneZone.getWidth()) + (droneZone.getWidth() / 2)
+
                 coordinate = Coordinates.Coordinates(coX, coY)
                 self.board[x][y] = Case.Case(coordinate, droneZone)
         
 
     ##################################################################################
     #######################              GETTERS               #######################
-
-    # Get Capture Zone (Zone class)
-    def getCaptureZone(self):
-        return self.captureZone
 
     # Get Capture Zone (Zone class)
     def getDroneZone(self):
@@ -57,23 +62,19 @@ class Board:
     #######################              SETTERS               #######################
 
     # Set Capture Zone (Zone class)
-    def getCaptureZone(self, captureZone):
-        self.captureZone = captureZone
-
-    # Set Capture Zone (Zone class)
-    def getDroneZone(self, droneZone):
+    def setDroneZone(self, droneZone):
         self.droneZone = droneZone
 
     # Set Capture Zone (int)
-    def getLines(self, lines):
+    def setLines(self, lines):
         self.lines = lines
 
     # Set Capture Zone (int)
-    def getColumns(self, columns):
+    def setColumns(self, columns):
         self.columns = columns
 
     # Set Capture Zone (2D Array of Case Class)
-    def getBoard(self, board):
+    def setBoard(self, board):
         self.board = board
 
 
@@ -151,7 +152,10 @@ class Board:
     def possibleToMove(self, drone, movement):
         cos = self.getCoordinatesForNextMove(drone, movement)
         if cos == None:
+            #print("NOPE IMPOSSIBLE")
             return False
+
+        #print(cos)
         
         x = cos[0]
         y = cos[1]
@@ -159,7 +163,9 @@ class Board:
         # check if possible to move on the next case
         # -> next case not visited
         # -> coordinates not out of range
-        if y < self.lines and y >= 0 and x < self.columns and x >= 0:
+        
+        if x < self.lines and y >= 0 and y < self.columns and x >= 0:
+            #print(x, "<", self.lines, " - ", y, "<", self.columns)
             if self.board[x][y].getIdDrone() == -1:
                 return True
         return False
