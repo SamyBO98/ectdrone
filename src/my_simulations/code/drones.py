@@ -27,7 +27,7 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
     
     for c in coordinates.getCoordinatesToReach():
         
-        droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
+        #droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
         #range = c.getVector(droneCoordinates)
         #timePause = range / speed
         #print("Drone", indice, "lui faut", timePause, "secondes pour atteindre", c.toString(),"Actuellement", droneCoordinates.toString(),"Lancement...")
@@ -36,7 +36,11 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
         #point = LocationGlobalRelative(c.getX(), c.getY(), vehicle.location.global_relative_frame.alt)
         #vehicle.simple_goto(point)
         #print("Velocity:", vehicle.velocity)
-        time.sleep(20)
+        while c.isReached(Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon)) == False:
+            print("Drone", indice, "aux coordonnees", Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon).toString(), "pour aller en", c.toString())
+            time.sleep(0.1)
+
+        print("Drone", indice, "a atteint les coordonnees, NEXT...")
     
     """
     # just testing
