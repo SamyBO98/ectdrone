@@ -24,7 +24,6 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
         Travel a drone for each coordinates he needs to travel
         (Next step: for each case reached, calculate range between drone and final position with battery to determinate if the drone continues)
     """
-    
     for c in coordinates.getCoordinatesToReach():
         
         #droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
@@ -37,10 +36,12 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
         #vehicle.simple_goto(point)
         #print("Velocity:", vehicle.velocity)
         while c.isReached(Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon)) == False:
-            print("Drone", indice, "aux coordonnees", Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon).toString(), "pour aller en", c.toString())
+            #print("Drone", indice, "aux coordonnees", Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon).toString(), "pour aller en", c.toString())
             time.sleep(0.1)
 
         print("Drone", indice, "a atteint les coordonnees, NEXT...")
+        
+        #time.sleep(30)
     
     """
     # just testing
@@ -149,15 +150,18 @@ if __name__ == "__main__":
     dronesFromGazebo = Drones.Drones()
 
     # Add drones
-    print("Coordinates from drone 1: (test) %s" % vehicle1.location.global_relative_frame.lon)
-    drone1 = Drone.Drone(Coordinates.Coordinates(vehicle1.location.global_relative_frame.lon, vehicle1.location.global_relative_frame.lat))
-    drone2 = Drone.Drone(Coordinates.Coordinates(vehicle2.location.global_relative_frame.lon, vehicle2.location.global_relative_frame.lat))
+    print("Coordinates from drone 1: (test)", vehicle1.location.global_relative_frame)
+    print("Coordinates from drone 2: (test)", vehicle2.location.global_relative_frame)
+    #drone1 = Drone.Drone(Coordinates.Coordinates(vehicle1.location.global_relative_frame.lon, vehicle1.location.global_relative_frame.lat))
+    #drone2 = Drone.Drone(Coordinates.Coordinates(vehicle2.location.global_relative_frame.lon, vehicle2.location.global_relative_frame.lat))
+    drone1 = Drone.Drone(Coordinates.Coordinates(-35.3632621, 149.1647968))
+    drone2 = Drone.Drone(Coordinates.Coordinates(-35.3632621, 149.1656779))
 
     dronesFromGazebo.addDrone(drone1)
     dronesFromGazebo.addDrone(drone2)
 
     # Create board
-    boardDrone = Board.Board(Coordinates.Coordinates(-35.3632619, 149.1652000), Coordinates.Coordinates(-35.3600, 149.1655), Zone.Zone(0.00007, 0.0007))
+    boardDrone = Board.Board(Coordinates.Coordinates(-35.363040, 149.164960), Coordinates.Coordinates(-35.363484, 149.165520), Zone.Zone(0.00012, 0.00012))
     boardDrone.idString()
     boardDrone.toString()
     #boardDrone.idString()
@@ -189,11 +193,11 @@ if __name__ == "__main__":
     
 
     # Launch threads
-    f1 = Thread(target=arm_and_takeoff,args=(vehicle1, drone1, 0, 10))
+    f1 = Thread(target=arm_and_takeoff,args=(vehicle1, drone1, 0, 20))
     f1.daemon = True 
     f1.start()
 
-    f2 = Thread(target=arm_and_takeoff,args=(vehicle2, drone2, 1, 15))
+    f2 = Thread(target=arm_and_takeoff,args=(vehicle2, drone2, 1, 20))
     f2.daemon = True 
     f2.start()
     

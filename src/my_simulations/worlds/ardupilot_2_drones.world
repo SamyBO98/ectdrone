@@ -44,17 +44,36 @@
             </friction>
           </surface>
         </collision>
+
+        <!-- visual grass -->
+        <visual name="grass">
+          <pose>0 0 -0.1 0 0 0</pose>
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>50 50</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grass</name>
+            </script>
+          </material>
+        </visual>
+
       </link>
     </model>
 
     <model name="iris_9002">
-      <pose>0 -1 0 0 0 0</pose>
+      <pose>0 40 0 0 0 0</pose>
       <include>
         <uri>model://iris_with_ardupilot_9002</uri>
       </include>
     </model>
     <model name="iris_9012">
-      <pose>0 1 0 0 0 0</pose>
+      <pose>0 -40 0 0 0 0</pose>
       <include>
         <uri>model://iris_with_ardupilot_9012</uri>
       </include>

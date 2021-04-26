@@ -54,4 +54,4 @@ class Coordinates:
         return sqrt((coordinates.getX() - self.x)**2 + (coordinates.getY() - self.y)**2)
 
     def isReached(self, coordinates):
-        return coordinates.getX() <= self.x + 0.00001 and coordinates.getX() >= self.x - 0.00001 and coordinates.getY() <= self.y + 0.00001 and coordinates.getY() <= self.y + 0.00001
+        return coordinates.getX() <= self.x + 0.000001 and coordinates.getX() >= self.x - 0.000001 and coordinates.getY() <= self.y + 0.000001 and coordinates.getY() <= self.y + 0.000001
