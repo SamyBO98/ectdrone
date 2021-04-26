@@ -18,7 +18,7 @@ import movement as EnumMovement
 if __name__ == "__main__":
 
     # create board
-    boardDrone = Board.Board(Coordinates.Coordinates(-35.363040, 149.164960), Coordinates.Coordinates(-35.363484, 149.165520), Zone.Zone(0.00012, 0.00012))
+    boardDrone = Board.Board(Coordinates.Coordinates(-35.363041, 149.164961), Coordinates.Coordinates(-35.363484, 149.165521), Zone.Zone(0.00012, 0.00012))
     boardDrone.idString()
     boardDrone.toString()
 

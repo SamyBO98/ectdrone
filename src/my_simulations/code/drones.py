@@ -25,6 +25,8 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
         (Next step: for each case reached, calculate range between drone and final position with battery to determinate if the drone continues)
     """
     for c in coordinates.getCoordinatesToReach():
+        currentCoDrone = Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon)
+        print("Drone", indice, "est actuellement a", currentCoDrone.toString(), "pour", c.toString())
         
         #droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
         #range = c.getVector(droneCoordinates)
@@ -35,9 +37,13 @@ def travel_vehicle_all_coordinates(vehicle, coordinates, indice):
         #point = LocationGlobalRelative(c.getX(), c.getY(), vehicle.location.global_relative_frame.alt)
         #vehicle.simple_goto(point)
         #print("Velocity:", vehicle.velocity)
-        while c.isReached(Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon)) == False:
+        
+        while c.isReached(currentCoDrone) == False:
+            currentCoDrone = Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon)
             #print("Drone", indice, "aux coordonnees", Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon).toString(), "pour aller en", c.toString())
             time.sleep(0.1)
+        
+        #time.sleep(15)
 
         print("Drone", indice, "a atteint les coordonnees, NEXT...")
         
@@ -161,7 +167,7 @@ if __name__ == "__main__":
     dronesFromGazebo.addDrone(drone2)
 
     # Create board
-    boardDrone = Board.Board(Coordinates.Coordinates(-35.363040, 149.164960), Coordinates.Coordinates(-35.363484, 149.165520), Zone.Zone(0.00012, 0.00012))
+    boardDrone = Board.Board(Coordinates.Coordinates(-35.363041, 149.164961), Coordinates.Coordinates(-35.363484, 149.165521), Zone.Zone(0.00012, 0.00012))
     boardDrone.idString()
     boardDrone.toString()
     #boardDrone.idString()

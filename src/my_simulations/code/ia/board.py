@@ -3,6 +3,7 @@ import math
 import case as Case
 import coordinates as Coordinates
 import movement as EnumMovement
+import decimal
 class Board:
 
     ##################################################################################
@@ -33,6 +34,8 @@ class Board:
                     coY = coordinate1.getY() - (y * droneZone.getWidth()) - (droneZone.getWidth() / 2)
                 else:
                     coY = coordinate1.getY() + (y * droneZone.getWidth()) + (droneZone.getWidth() / 2)
+
+                #print("Coordinate1 -", coordinate1.toString(), "| Coordinate2 -", coordinate2.toString(), "| Dronezone -", droneZone.toString())
 
                 coordinate = Coordinates.Coordinates(coX, coY)
                 self.board[x][y] = Case.Case(coordinate, droneZone)
