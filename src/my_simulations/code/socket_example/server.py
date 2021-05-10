@@ -1,33 +1,37 @@
-#coding:utf-8
-import socket 
-import threading
+import socket
+import os
+import pickle
+import TestClass
+from _thread import *
+
+ServerSocket = socket.socket()
+host = '127.0.0.1'
+port = 1234
+ThreadCount = 0
+try:
+    ServerSocket.bind((host, port))
+except socket.error as e:
+    print(str(e))
+
+print('Waitiing for a Connection..')
+ServerSocket.listen(5)
 
 
-
-class ThreadForClient(threading.Thread):
-    def __init__(self,conn):
-        threading.Thread.__init__(self)
-        self.conn = conn
-
-    def run(self):
-        data1, data2 = [int(i) for i in self.conn.recv(2048).decode('utf-8').split('\n')]
-        print str(data1) + " " + str(data2)
-
-
-host, port = ('',5566)
-
-socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-socket.bind((host,port))
-print("Le serveur est démarré")
+def threaded_client(connection, address):
+    connection.send(str.encode('Welcome to the Servern'))
+    while True:
+        data = connection.recv(2048)
+        print('I received from', address[0] + ':' + str(address[1]), pickle.loads(data))
+        #reply = 'Server Says: ' + data.decode('utf-8')
+        if not data:
+            break
+        connection.sendall(pickle.dumps(pickle.loads(data)))
+    connection.close()
 
 while True:
-    socket.listen(5)
-    conn, address = socket.accept()
-    print "Un client vient de se connecter"
-
-    my_thread = ThreadForClient(conn)
-    my_thread.start()
-
-
-conn.close()
-socket.close()
+    Client, address = ServerSocket.accept()
+    print('Connected to: ' + address[0] + ':' + str(address[1]))
+    start_new_thread(threaded_client, (Client, address))
+    ThreadCount += 1
+    print('Thread Number: ' + str(ThreadCount))
+ServerSocket.close()

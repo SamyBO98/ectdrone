@@ -1,35 +1,27 @@
-#coding:utf-8
 import socket
+import pickle
+import TestClass
 
-# Dans le client on met toute la partie drone avec les mouvements
-# Dans le serveur on met toute la partie traitement
-# Serveur envoie les chemins au client
+ClientSocket = socket.socket()
+host = '127.0.0.1'
+port = 1234
 
-# Chopper les valeurs des batteries des différents drones
-# Client envoie niveau de batterie au serv 
-# Si une batterie arrive à 0 on calcule la distance + les batteries des autres et on affecte à celui qu'on veut 
-# Le serveur renvoit les données au client qui s'adapter
-# Ici on a qu'une seul socket qui permet au client d'envoyer et au serveur de recevoir
-# Il faut faire une autre socket coté serveur pour que le serv puisse envoyer au client
-
-
-batterieDrone1 = 10
-batterieDrone2 = 20
-batterieDrone3 = 50
-batterieDrone4 = 100
-
-host, port = ('localhost',5566)
-socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-
+print('Waiting for connection...')
 try:
-    socket.connect((host,port))
-    print "Client connecté"
-    
-    #Add batteries from all drones
-    socket.sendall(str.encode("\n".join([str(batterieDrone1), str(batterieDrone2)])))
-    print(batterieDrone1)
+    ClientSocket.connect((host, port))
+except socket.error as e:
+    print(str(e))
 
-except:
-    print "Connexion au serveur échouée"
-finally:
-    socket.close()
+Response = ClientSocket.recv(1024)
+
+while True:
+    x = input('x coordinates: ')
+    y = input('y coordinates: ')
+    Data = TestClass.TestClass(int(x), int(y))
+    #Input = input('Say Something: ')
+    #ClientSocket.send(str.encode(Input))
+    ClientSocket.send(pickle.dumps(Data)) # envoie un objet
+    Response = pickle.loads(ClientSocket.recv(1024)) # recoit un objet
+    print(Response.toString())
+
+ClientSocket.close()
