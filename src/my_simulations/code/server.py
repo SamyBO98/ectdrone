@@ -28,15 +28,21 @@ parser.add_argument('nbDrones', type=int, help="gives number of drones by using 
 
 ServerSocket = socket.socket()
 host = '127.0.0.1'
-port = 1234
+port = 1233
 Threads = []
 ThreadsCountBeforeStartAlgorithm = 0
 
+"""
+    Fonction de broadcast quand tout les drones sont connectees
+"""
 def broadcast(nbDrones):
     print('[SERVER] >> Broadcast for my clients...')
     for Athread in Threads:
         Athread[0].sendall(str.encode("[CLIENT] Broadcast"))
 
+"""
+    Fonction qui envoie un message de bienvenue au drone qui s'est connecte
+"""
 def connect_client(connection, address):
     connection.sendall(str.encode('[CLIENT] >> Welcome to the server!'))
     """
@@ -51,6 +57,9 @@ def connect_client(connection, address):
     connection.close()
     """
 
+"""
+    Fonction qui attend l'envoi d'un message des drones pour les initialiser plus tard dans la recherche du meilleur chemin
+"""
 def receive_coordinates(dronesThreads):
     for droneThread in dronesThreads:
         data = droneThread[0].recv(4096)
@@ -60,13 +69,17 @@ def receive_coordinates(dronesThreads):
 
     print('[SERVER] Start the algorithm...')
 
+"""
+    Fonction qui genere les coordonnees de l'algorithme de recherche des meilleurs chemins
+    Envoie ces coordonnees aux drones
+"""
 def generate_and_send_coordinates(dronesThreads):
     # Create drones array
     dronesFromGazebo = Drones.Drones()
 
     # Add drones
     for droneThread in dronesThreads:
-        drone = Drone.Drone(Coordinates.Coordinates(droneThread[2].lon, droneThread[2].lat))
+        drone = Drone.Drone(Coordinates.Coordinates(droneThread[2].lat, droneThread[2].lon))
         print(drone.getCoordinates().toString())
         dronesFromGazebo.addDrone(drone)
 
@@ -103,6 +116,60 @@ def generate_and_send_coordinates(dronesThreads):
     bestWay[1].toString()
     print("Number of movements:", bestWay[2])
 
+"""
+    Fonction qui recoit les messages des drones pour les envoyer aux autres
+"""
+def drones_broadcast(droneThread):
+    while True:
+        data = droneThread[0].recv(4096)
+        machin = pickle.loads(data)
+
+        # message recu = coordonnee: on continue
+        # sinon, le drone a finit sa recherche
+        if type(machin) != bool:
+            print("[SERVER] >> I just received that " + str(droneThread[1][0]) + ":" + str(droneThread[1][1]) + " send me coordinates. I will make a broadcast")
+            for drone in Threads:
+                if drone[2] != droneThread[2]:
+                    drone[0].sendall(pickle.dumps(
+                        str.encode(
+                            "[MESSAGE FROM SERVER] >> "
+                            + str(droneThread[1][0]) + ":" + str(droneThread[1][1])
+                            + " has just visited ["
+                            + str(machin.getX()) + ", " + str(machin.getY()) + "]"
+                        )
+                    ))
+
+        else:
+            print("[SERVER] >> I just received that " + str(droneThread[1][0]) + ":" + str(droneThread[1][1]) + " finished his travel. I will prevent other drones")
+            for drone in Threads:
+                if drone[2] != droneThread[2]:
+                    drone[0].sendall(
+                        pickle.dumps(str.encode(
+                            "[MESSAGE FROM SERVER] >> " 
+                            + str(droneThread[1][0]) + ":" + str(droneThread[1][1])
+                            + " has just finished his travel"
+                        )
+                    ))
+            droneThread[3] = True
+            break
+
+def check_drones_finished():
+    while True:
+        allDronesHaveFinished = True
+        for droneThread in Threads:
+            if droneThread[3] == False:
+                allDronesHaveFinished = False
+        
+        if allDronesHaveFinished == True:
+            break
+        else:
+            time.sleep(5)
+
+def final_broadcast():
+    print("[SERVER] >> Final broadcast in process...")
+    for droneThread in Threads:
+        droneThread[0].sendall(pickle.dumps(True))
+    print("[SERVER] >> Server will be closed")
 
 if __name__ == '__main__':
     args = parser.parse_args(sys.argv[1:])
@@ -120,7 +187,7 @@ if __name__ == '__main__':
         Client, address = ServerSocket.accept()
         print('[SERVER] >> Client', address[0], ':', address[1], 'is now connected!')
         start_new_thread(connect_client, (Client, address))
-        Threads.append([Client, address, None])
+        Threads.append([Client, address, None, False])
 
         if len(Threads) == args.nbDrones:
             break
@@ -140,5 +207,13 @@ if __name__ == '__main__':
     # fonction qui recupere les infos des drones
     # avec un while true (pour chaque info recu d'un drone, on broadcast...)
     # une fois qu'un robot a tout termine, il ping le client
+    for droneThread in Threads:
+        start_new_thread(drones_broadcast, (droneThread,))
+
+    # fonction qui attend que tout les drones aient termines leurs parcours
+    check_drones_finished()
+
+    # broadcast final
+    final_broadcast()
 
     ServerSocket.close()

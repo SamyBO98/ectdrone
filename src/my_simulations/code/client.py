@@ -2,6 +2,7 @@ import socket
 import pickle
 import sys
 import argparse
+from _thread import *
 import time
 from pymavlink import mavutil
 from dronekit import connect, VehicleMode, LocationGlobalRelative
@@ -9,8 +10,9 @@ from ia import coordinates as Coordinates
 
 ClientSocket = socket.socket()
 host = '127.0.0.1'
-port = 1234
+port = 1233
 speed = 10 # meters / s
+final_message = False # dernier message du serveur
 
 def travel_vehicle_all_coordinates(vehicle, coordinates):
     """
@@ -19,7 +21,7 @@ def travel_vehicle_all_coordinates(vehicle, coordinates):
     """
     for c in coordinates.getCoordinatesToReach():
         currentCoDrone = Coordinates.Coordinates(vehicle.location.global_relative_frame.lat, vehicle.location.global_relative_frame.lon)
-        print("[CLIENT] >> Le drone est actuellement a", currentCoDrone.toString(), "pour", c.toString())
+        #print("[CLIENT] >> Le drone est actuellement a", currentCoDrone.toString(), "pour", c.toString())
         
         #droneCoordinates = Coordinates.Coordinates(vehicle.location.global_relative_frame.lon, vehicle.location.global_relative_frame.lat)
         #range = c.getVector(droneCoordinates)
@@ -37,8 +39,8 @@ def travel_vehicle_all_coordinates(vehicle, coordinates):
             time.sleep(0.1)
         
         #time.sleep(15)
-
-        print("[CLIENT] Le drone a atteint les coordonnees, NEXT...")
+        ClientSocket.sendall(pickle.dumps(c))
+        #print("[CLIENT] Le drone a atteint les coordonnees, NEXT...")
         
         #time.sleep(30)
     
@@ -51,11 +53,11 @@ def travel_vehicle_all_coordinates(vehicle, coordinates):
         print("Drone", indice, "est arrive aux coordonnees", vehicle.location.global_relative_frame)
     """
 
-    print("[CLIENT] >> Le drone a termine sa mission.")
-    vehicle.mode = VehicleMode("RTL")
+    #print("[CLIENT] >> Le drone a termine sa mission.")
+    ClientSocket.sendall(pickle.dumps(True))
 
+    vehicle.mode = VehicleMode("RTL")
     # Close vehicle object before exiting script
-    print("[CLIENT] >> Fermeture du drone")
     vehicle.close()
 
 def goto_position_target_global_int(vehicle, aLocation):
@@ -78,6 +80,18 @@ def goto_position_target_global_int(vehicle, aLocation):
 
     # send command to vehicle
     vehicle.send_mavlink(msg)
+
+def receive_messages_from_server(message):
+    while True:
+        data = ClientSocket.recv(4096)
+        machin = pickle.loads(data)
+
+        if type(machin) == bool:
+            print("[CLIENT] >> Message from Server: EVERYTHING IS CLEARED! CONGRATULATIONS!")
+            message = True
+            break
+        else:
+            print(machin)
 
 def arm_and_takeoff(vehicle, aTargetAltitude):
     """
@@ -104,6 +118,7 @@ def arm_and_takeoff(vehicle, aTargetAltitude):
     # quand le serveur aura recu un message de tout le monde, il lancera l'algorithme
     # pendant ce temps, on fait voler le robot et le prochain message recu sera le tableau de coordonnees
     Data = vehicle.location.global_relative_frame
+    print(type(vehicle.location.global_relative_frame.alt))
     ClientSocket.sendall(pickle.dumps(Data))
 
     print('[CLIENT] >> Taking off!')
@@ -119,6 +134,9 @@ def arm_and_takeoff(vehicle, aTargetAltitude):
             print('[CLIENT] >> Reached target altitude!')
             print('[CLIENT] >> Waiting for coordinates from the server...')
 
+            # thread pour recevoir les messages du serveur (de la part des autres drones)
+            start_new_thread(receive_messages_from_server, (final_message,))
+
             # on recoit les coordonnees du serveur
             # confirmation qu'il est connecte
             Response = ClientSocket.recv(4096)
@@ -127,6 +145,13 @@ def arm_and_takeoff(vehicle, aTargetAltitude):
             break
 
         time.sleep(1)
+
+def check_for_final_message():
+    while True:
+        if final_message == True:
+            break
+
+        time.sleep(5)
 
 
 # parser arguments
@@ -163,6 +188,6 @@ if __name__ == '__main__':
     # une fois pret on envoie une notif au serveur
     #Response = ClientSocket.recv(4096)
     
-
+    check_for_final_message()
 
     ClientSocket.close()
