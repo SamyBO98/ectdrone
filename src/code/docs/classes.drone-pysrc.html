@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>classes.drone</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="classes-module.html">Package&nbsp;classes</a> ::
+        Module&nbsp;drone
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="classes.drone-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="classes.drone-module.html">Module classes.drone</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># coding: utf8</tt> </tt>
+<a name="Drone"></a><div id="Drone-def"><a name="L3"></a><tt class="py-lineno">  3</tt> <a class="py-toggle" href="#" id="Drone-toggle" onclick="return toggle('Drone');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="classes.drone.Drone-class.html">Drone</a><tt class="py-op">:</tt> </tt>
+</div><div id="Drone-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Drone-expanded"><a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Drone qui contient plusieurs informations: ses coordonn&#233;es initiales, un nombre de cases du tableau &#224; franchir, un nombre de cases franchis, une liste de coordonn&#233;es &#224; explorer et sa liste d'index du tableau associ&#233;e</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line">    <tt class="py-comment">##################################################################################</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line">    <tt class="py-comment">#######################         CLASS CONSTRUCTOR          #######################</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"> </tt>
+<a name="Drone.__init__"></a><div id="Drone.__init__-def"><a name="L11"></a><tt class="py-lineno"> 11</tt> <a class="py-toggle" href="#" id="Drone.__init__-toggle" onclick="return toggle('Drone.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">coordinates</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.__init__-expanded"><a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Initialise les informations utiles au bon fonctionnement du drone</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">        @param coordinates: Coordonn&#233;es initiales du drone</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">        @type coordinates: &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Module classes.coordinates=classes.coordinates-module.html"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-0', 'coordinates', 'link-0');">coordinates</a></tt> <tt class="py-op">=</tt> <tt id="link-1" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-1', 'coordinates', 'link-0');">coordinates</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">nbCases</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">casesReached</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt class="py-comment">##################################################################################</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">    <tt class="py-comment">#######################              GETTERS               #######################</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getCoordinates"></a><div id="Drone.getCoordinates-def"><a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="Drone.getCoordinates-toggle" onclick="return toggle('Drone.getCoordinates');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getCoordinates">getCoordinates</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getCoordinates-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getCoordinates-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne les coordonn&#233;es initiales</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">        @return: &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-2', 'coordinates', 'link-0');">coordinates</a></tt> </tt>
+</div><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getNbCases"></a><div id="Drone.getNbCases-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="Drone.getNbCases-toggle" onclick="return toggle('Drone.getNbCases');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getNbCases">getNbCases</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getNbCases-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getNbCases-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne le nombre de cases &#224; explorer</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">        @return: int</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">nbCases</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getCasesReach"></a><div id="Drone.getCasesReach-def"><a name="L41"></a><tt class="py-lineno"> 41</tt> <a class="py-toggle" href="#" id="Drone.getCasesReach-toggle" onclick="return toggle('Drone.getCasesReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getCasesReach">getCasesReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getCasesReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getCasesReach-expanded"><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne le nombre de cases restantes &#224; explorer</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">        @return: int</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">casesReached</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getCoordinatesToReach"></a><div id="Drone.getCoordinatesToReach-def"><a name="L48"></a><tt class="py-lineno"> 48</tt> <a class="py-toggle" href="#" id="Drone.getCoordinatesToReach-toggle" onclick="return toggle('Drone.getCoordinatesToReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getCoordinatesToReach">getCoordinatesToReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getCoordinatesToReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getCoordinatesToReach-expanded"><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne la liste de coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">        @return: [array] &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt> </tt>
+</div><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getIndexBoardToReach"></a><div id="Drone.getIndexBoardToReach-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="Drone.getIndexBoardToReach-toggle" onclick="return toggle('Drone.getIndexBoardToReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getIndexBoardToReach">getIndexBoardToReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getIndexBoardToReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getIndexBoardToReach-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne la liste d'index des coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">        @return: [array] [array] int</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt> </tt>
+</div><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-comment">##################################################################################</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-comment">#######################              SETTERS               #######################</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="Drone.setCoordinates"></a><div id="Drone.setCoordinates-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="Drone.setCoordinates-toggle" onclick="return toggle('Drone.setCoordinates');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#setCoordinates">setCoordinates</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">coordinates</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.setCoordinates-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.setCoordinates-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: D&#233;finit les coordonn&#233;es initiales</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        @param coordinates: Nouvelles coordonn&#233;es initiales</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">        @type coordinates: &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-3', 'coordinates', 'link-0');">coordinates</a></tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-4', 'coordinates', 'link-0');">coordinates</a></tt> </tt>
+</div><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="Drone.setNbCases"></a><div id="Drone.setNbCases-def"><a name="L74"></a><tt class="py-lineno"> 74</tt> <a class="py-toggle" href="#" id="Drone.setNbCases-toggle" onclick="return toggle('Drone.setNbCases');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#setNbCases">setNbCases</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">nbCases</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.setNbCases-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.setNbCases-expanded"><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: D&#233;finit le nombre de cases &#224; explorer</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">        @param nbCases: Nombre de cases &#224; explorer</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">        @type nbCases: int</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">nbCases</tt> <tt class="py-op">=</tt> <tt class="py-name">nbCases</tt> </tt>
+</div><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-comment">##################################################################################</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt class="py-comment">#######################       CLASS STRING FOR DEBUG       #######################</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="Drone.toString"></a><div id="Drone.toString-def"><a name="L86"></a><tt class="py-lineno"> 86</tt> <a class="py-toggle" href="#" id="Drone.toString-toggle" onclick="return toggle('Drone.toString');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#toString">toString</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.toString-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.toString-expanded"><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Fonction retournant les informations globales de la classe</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        @return: str</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-name">resCoordinates</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-name">resIndex</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-name">resCoordinates</tt> <tt class="py-op">=</tt> <tt class="py-name">resCoordinates</tt><tt class="py-op">,</tt> <tt class="py-name">i</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method classes.board.Board.toString()=classes.board.Board-class.html#toString,Method classes.case.Case.toString()=classes.case.Case-class.html#toString,Method classes.coordinates.Coordinates.toString()=classes.coordinates.Coordinates-class.html#toString,Method classes.drone.Drone.toString()=classes.drone.Drone-class.html#toString,Method classes.drones.Drones.toString()=classes.drones.Drones-class.html#toString,Method classes.tree4.QuartenaireTree.toString()=classes.tree4.QuartenaireTree-class.html#toString,Method classes.zone.Zone.toString()=classes.zone.Zone-class.html#toString"><a title="classes.board.Board.toString
+classes.case.Case.toString
+classes.coordinates.Coordinates.toString
+classes.drone.Drone.toString
+classes.drones.Drones.toString
+classes.tree4.QuartenaireTree.toString
+classes.zone.Zone.toString" class="py-name" href="#" onclick="return doclink('link-5', 'toString', 'link-5');">toString</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-name">resIndex</tt> <tt class="py-op">=</tt> <tt class="py-name">resIndex</tt><tt class="py-op">,</tt> <tt class="py-name">i</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'Cases affected:'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">nbCases</tt><tt class="py-op">,</tt><tt class="py-string">"- coordinates:"</tt><tt class="py-op">,</tt> <tt class="py-name">resCoordinates</tt><tt class="py-op">,</tt> <tt class="py-string">"- indexes:"</tt><tt class="py-op">,</tt> <tt class="py-name">resIndex</tt>  </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="Drone.coordinatesString"></a><div id="Drone.coordinatesString-def"><a name="L98"></a><tt class="py-lineno"> 98</tt> <a class="py-toggle" href="#" id="Drone.coordinatesString-toggle" onclick="return toggle('Drone.coordinatesString');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#coordinatesString">coordinatesString</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">i</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.coordinatesString-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.coordinatesString-expanded"><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Fonction retournant les informations sur la liste de coordonn&#233;es &#224; explorer selon l'indice donn&#233;</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">        @param i: Indice</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-docstring">        @type i: int</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">        @return: &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="classes.board.Board.toString
+classes.case.Case.toString
+classes.coordinates.Coordinates.toString
+classes.drone.Drone.toString
+classes.drones.Drones.toString
+classes.tree4.QuartenaireTree.toString
+classes.zone.Zone.toString" class="py-name" href="#" onclick="return doclink('link-6', 'toString', 'link-5');">toString</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt>
+<a name="Drone.indexString"></a><div id="Drone.indexString-def"><a name="L107"></a><tt class="py-lineno">107</tt> <a class="py-toggle" href="#" id="Drone.indexString-toggle" onclick="return toggle('Drone.indexString');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#indexString">indexString</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">i</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.indexString-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.indexString-expanded"><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Fonction retournant les informations sur la liste d'index des coordonn&#233;es &#224; explorer selon l'indice donn&#233;</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring">        @param i: Indice</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">        @type i: int</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">        @return: [int, int]</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-comment">##################################################################################</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment">#######################             FUNCTIONS              #######################</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="Drone.addCaseReached"></a><div id="Drone.addCaseReached-def"><a name="L120"></a><tt class="py-lineno">120</tt> <a class="py-toggle" href="#" id="Drone.addCaseReached-toggle" onclick="return toggle('Drone.addCaseReached');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#addCaseReached">addCaseReached</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.addCaseReached-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.addCaseReached-expanded"><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Ajoute une nouvelle case franchie pendant la g&#233;n&#233;ration de tout les chemins possibles</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">casesReached</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">casesReached</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="Drone.isReached"></a><div id="Drone.isReached-def"><a name="L126"></a><tt class="py-lineno">126</tt> <a class="py-toggle" href="#" id="Drone.isReached-toggle" onclick="return toggle('Drone.isReached');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#isReached">isReached</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.isReached-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.isReached-expanded"><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: V&#233;rifie si le drone &#224; explor&#233; toutes les cases</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-docstring">        @return: bool</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">nbCases</tt> <tt class="py-op">==</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">casesReached</tt> </tt>
+</div><a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"> </tt>
+<a name="Drone.addCoordinatesToReach"></a><div id="Drone.addCoordinatesToReach-def"><a name="L133"></a><tt class="py-lineno">133</tt> <a class="py-toggle" href="#" id="Drone.addCoordinatesToReach-toggle" onclick="return toggle('Drone.addCoordinatesToReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#addCoordinatesToReach">addCoordinatesToReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">coordinates</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.addCoordinatesToReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.addCoordinatesToReach-expanded"><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Ajoute une nouvelle coordonn&#233;e &#224; la liste de coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring">        @param coordinates: Indice</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-docstring">        @type coordinates: int</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt id="link-7" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-7', 'coordinates', 'link-0');">coordinates</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"> </tt>
+<a name="Drone.sizeCoordinatesToReach"></a><div id="Drone.sizeCoordinatesToReach-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="Drone.sizeCoordinatesToReach-toggle" onclick="return toggle('Drone.sizeCoordinatesToReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#sizeCoordinatesToReach">sizeCoordinatesToReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.sizeCoordinatesToReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.sizeCoordinatesToReach-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne la taille de la liste de coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring">        @return: int</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getLastCoordinateReached"></a><div id="Drone.getLastCoordinateReached-def"><a name="L148"></a><tt class="py-lineno">148</tt> <a class="py-toggle" href="#" id="Drone.getLastCoordinateReached-toggle" onclick="return toggle('Drone.getLastCoordinateReached');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getLastCoordinateReached">getLastCoordinateReached</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getLastCoordinateReached-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getLastCoordinateReached-expanded"><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne la derni&#232;re coordonn&#233;e de la liste de coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-docstring">        @return: &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
+<a name="Drone.updateLastCoordinateReached"></a><div id="Drone.updateLastCoordinateReached-def"><a name="L155"></a><tt class="py-lineno">155</tt> <a class="py-toggle" href="#" id="Drone.updateLastCoordinateReached-toggle" onclick="return toggle('Drone.updateLastCoordinateReached');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#updateLastCoordinateReached">updateLastCoordinateReached</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">coordinates</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.updateLastCoordinateReached-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.updateLastCoordinateReached-expanded"><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Met &#224; jour la derni&#232;re coordonn&#233;e de la liste de coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-docstring">        @param coordinates: Nouvelle coordonn&#233;e</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-docstring">        @type coordinates: &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">coordinatesToReach</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-8', 'coordinates', 'link-0');">coordinates</a></tt> </tt>
+</div><a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"> </tt>
+<a name="Drone.addIndexToReach"></a><div id="Drone.addIndexToReach-def"><a name="L163"></a><tt class="py-lineno">163</tt> <a class="py-toggle" href="#" id="Drone.addIndexToReach-toggle" onclick="return toggle('Drone.addIndexToReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#addIndexToReach">addIndexToReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">index</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.addIndexToReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.addIndexToReach-expanded"><a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Ajoute un nouvel index &#224; la liste d'index des coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">        @param index: Index du tableau de cases</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-docstring">        @type index: [int, int]</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">index</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="Drone.sizeIndexToReach"></a><div id="Drone.sizeIndexToReach-def"><a name="L171"></a><tt class="py-lineno">171</tt> <a class="py-toggle" href="#" id="Drone.sizeIndexToReach-toggle" onclick="return toggle('Drone.sizeIndexToReach');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#sizeIndexToReach">sizeIndexToReach</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.sizeIndexToReach-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.sizeIndexToReach-expanded"><a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne la taille de la liste d'index des coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-docstring">        @return: int</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="Drone.getLastIndexReached"></a><div id="Drone.getLastIndexReached-def"><a name="L178"></a><tt class="py-lineno">178</tt> <a class="py-toggle" href="#" id="Drone.getLastIndexReached-toggle" onclick="return toggle('Drone.getLastIndexReached');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#getLastIndexReached">getLastIndexReached</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.getLastIndexReached-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.getLastIndexReached-expanded"><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Retourne le dernier index de la liste d'index des coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"><tt class="py-docstring">        @return: [int, int]</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="Drone.updateLastIndexReached"></a><div id="Drone.updateLastIndexReached-def"><a name="L185"></a><tt class="py-lineno">185</tt> <a class="py-toggle" href="#" id="Drone.updateLastIndexReached-toggle" onclick="return toggle('Drone.updateLastIndexReached');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="classes.drone.Drone-class.html#updateLastIndexReached">updateLastIndexReached</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">index</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Drone.updateLastIndexReached-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Drone.updateLastIndexReached-expanded"><a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-docstring">        @summary: Met &#224; jour le dernier index de la liste d'index des coordonn&#233;es &#224; explorer</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-docstring">        @param index: Nouvel index du tableau de cases</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"><tt class="py-docstring">        @type index: [int, int]</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">indexBoardToReach</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">index</tt> </tt>
+</div></div><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed May 26 00:58:16 2021
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>client</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;client
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="client-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="client-module.html">Module client</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># coding: utf8</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">socket</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pickle</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">argparse</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">_thread</tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">pymavlink</tt> <tt class="py-keyword">import</tt> <tt class="py-name">mavutil</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">dronekit</tt> <tt class="py-keyword">import</tt> <tt class="py-name">connect</tt><tt class="py-op">,</tt> <tt class="py-name">VehicleMode</tt><tt class="py-op">,</tt> <tt class="py-name">LocationGlobalRelative</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package classes=classes-module.html"><a title="classes" class="py-name" href="#" onclick="return doclink('link-0', 'classes', 'link-0');">classes</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module classes.coordinates=classes.coordinates-module.html"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-1', 'coordinates', 'link-1');">coordinates</a></tt> <tt class="py-keyword">as</tt> <tt id="link-2" class="py-name" targets="Class classes.coordinates.Coordinates=classes.coordinates.Coordinates-class.html"><a title="classes.coordinates.Coordinates" class="py-name" href="#" onclick="return doclink('link-2', 'Coordinates', 'link-2');">Coordinates</a></tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable client.ClientSocket=client-module.html#ClientSocket"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-3', 'ClientSocket', 'link-3');">ClientSocket</a></tt> <tt class="py-op">=</tt> <tt class="py-name">socket</tt><tt class="py-op">.</tt><tt class="py-name">socket</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable client.host=client-module.html#host,Variable server.host=server-module.html#host"><a title="client.host
+server.host" class="py-name" href="#" onclick="return doclink('link-4', 'host', 'link-4');">host</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'127.0.0.1'</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable client.port=client-module.html#port,Variable server.port=server-module.html#port"><a title="client.port
+server.port" class="py-name" href="#" onclick="return doclink('link-5', 'port', 'link-5');">port</a></tt> <tt class="py-op">=</tt> <tt class="py-number">1233</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable client.speed=client-module.html#speed"><a title="client.speed" class="py-name" href="#" onclick="return doclink('link-6', 'speed', 'link-6');">speed</a></tt> <tt class="py-op">=</tt> <tt class="py-number">10</tt> <tt class="py-comment"># meters / s</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable client.final_message=client-module.html#final_message"><a title="client.final_message" class="py-name" href="#" onclick="return doclink('link-7', 'final_message', 'link-7');">final_message</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> <tt class="py-comment"># dernier message du serveur</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="travel_vehicle_all_coordinates"></a><div id="travel_vehicle_all_coordinates-def"><a name="L19"></a><tt class="py-lineno"> 19</tt> <a class="py-toggle" href="#" id="travel_vehicle_all_coordinates-toggle" onclick="return toggle('travel_vehicle_all_coordinates');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="client-module.html#travel_vehicle_all_coordinates">travel_vehicle_all_coordinates</a><tt class="py-op">(</tt><tt class="py-param">vehicle</tt><tt class="py-op">,</tt> <tt class="py-param">coordinates</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="travel_vehicle_all_coordinates-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="travel_vehicle_all_coordinates-expanded"><a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Permet au drone d'atteindre une liste de coordonn&#233;es donn&#233;e</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">    @param vehicle: Drone</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">    @param coordinates: Liste de coordonn&#233;es &#224; atteindre</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">    @type coordinates: [array] &lt;Class&gt; Coordinates</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-string">        Travel a drone for each coordinates he needs to travel</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-string">        (Next step: for each case reached, calculate range between drone and final position with battery to determinate if the drone continues)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">c</tt> <tt class="py-keyword">in</tt> <tt id="link-8" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-8', 'coordinates', 'link-1');">coordinates</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method classes.drone.Drone.getCoordinatesToReach()=classes.drone.Drone-class.html#getCoordinatesToReach"><a title="classes.drone.Drone.getCoordinatesToReach" class="py-name" href="#" onclick="return doclink('link-9', 'getCoordinatesToReach', 'link-9');">getCoordinatesToReach</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-name">currentCoDrone</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="classes.coordinates.Coordinates" class="py-name" href="#" onclick="return doclink('link-10', 'Coordinates', 'link-2');">Coordinates</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="classes.coordinates.Coordinates" class="py-name" href="#" onclick="return doclink('link-11', 'Coordinates', 'link-2');">Coordinates</a></tt><tt class="py-op">(</tt><tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">lat</tt><tt class="py-op">,</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">lon</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt id="link-12" class="py-name" targets="Function client.goto_position_target_global_int()=client-module.html#goto_position_target_global_int"><a title="client.goto_position_target_global_int" class="py-name" href="#" onclick="return doclink('link-12', 'goto_position_target_global_int', 'link-12');">goto_position_target_global_int</a></tt><tt class="py-op">(</tt><tt class="py-name">vehicle</tt><tt class="py-op">,</tt> <tt class="py-name">LocationGlobalRelative</tt><tt class="py-op">(</tt><tt class="py-name">c</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method classes.coordinates.Coordinates.getX()=classes.coordinates.Coordinates-class.html#getX"><a title="classes.coordinates.Coordinates.getX" class="py-name" href="#" onclick="return doclink('link-13', 'getX', 'link-13');">getX</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">c</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method classes.coordinates.Coordinates.getY()=classes.coordinates.Coordinates-class.html#getY"><a title="classes.coordinates.Coordinates.getY" class="py-name" href="#" onclick="return doclink('link-14', 'getY', 'link-14');">getY</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">alt</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">         </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">c</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method classes.coordinates.Coordinates.isReached()=classes.coordinates.Coordinates-class.html#isReached,Method classes.drone.Drone.isReached()=classes.drone.Drone-class.html#isReached"><a title="classes.coordinates.Coordinates.isReached
+classes.drone.Drone.isReached" class="py-name" href="#" onclick="return doclink('link-15', 'isReached', 'link-15');">isReached</a></tt><tt class="py-op">(</tt><tt class="py-name">currentCoDrone</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">False</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">            <tt class="py-name">currentCoDrone</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="classes.coordinates.Coordinates" class="py-name" href="#" onclick="return doclink('link-16', 'Coordinates', 'link-2');">Coordinates</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="classes.coordinates.Coordinates" class="py-name" href="#" onclick="return doclink('link-17', 'Coordinates', 'link-2');">Coordinates</a></tt><tt class="py-op">(</tt><tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">lat</tt><tt class="py-op">,</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">lon</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">            <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-number">0.1</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt id="link-18" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-18', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">sendall</tt><tt class="py-op">(</tt><tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">dumps</tt><tt class="py-op">(</tt><tt class="py-name">c</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt id="link-19" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-19', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">sendall</tt><tt class="py-op">(</tt><tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">dumps</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">mode</tt> <tt class="py-op">=</tt> <tt class="py-name">VehicleMode</tt><tt class="py-op">(</tt><tt class="py-string">"RTL"</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-comment"># Close vehicle object before exiting script</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="goto_position_target_global_int"></a><div id="goto_position_target_global_int-def"><a name="L47"></a><tt class="py-lineno"> 47</tt> <a class="py-toggle" href="#" id="goto_position_target_global_int-toggle" onclick="return toggle('goto_position_target_global_int');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="client-module.html#goto_position_target_global_int">goto_position_target_global_int</a><tt class="py-op">(</tt><tt class="py-param">vehicle</tt><tt class="py-op">,</tt> <tt class="py-param">aLocation</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="goto_position_target_global_int-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="goto_position_target_global_int-expanded"><a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Dirige le drone &#224; une coordonn&#233;e donn&#233;e</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">    @param vehicle: Drone</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">    @param aLocation: Coordonn&#233;e</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-name">msg</tt> <tt class="py-op">=</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">message_factory</tt><tt class="py-op">.</tt><tt class="py-name">set_position_target_global_int_encode</tt><tt class="py-op">(</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt>       <tt class="py-comment"># time_boot_ms (not used)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt>    <tt class="py-comment"># target system, target component</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">mavutil</tt><tt class="py-op">.</tt><tt class="py-name">mavlink</tt><tt class="py-op">.</tt><tt class="py-name">MAV_FRAME_GLOBAL_RELATIVE_ALT_INT</tt><tt class="py-op">,</tt> <tt class="py-comment"># frame</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-number">0b0000111111111000</tt><tt class="py-op">,</tt> <tt class="py-comment"># type_mask (only speeds enabled)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-name">aLocation</tt><tt class="py-op">.</tt><tt class="py-name">lat</tt><tt class="py-op">*</tt><tt class="py-number">1e7</tt><tt class="py-op">,</tt> <tt class="py-comment"># lat_int - X Position in WGS84 frame in 1e7 * meters</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">aLocation</tt><tt class="py-op">.</tt><tt class="py-name">lon</tt><tt class="py-op">*</tt><tt class="py-number">1e7</tt><tt class="py-op">,</tt> <tt class="py-comment"># lon_int - Y Position in WGS84 frame in 1e7 * meters</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-name">aLocation</tt><tt class="py-op">.</tt><tt class="py-name">alt</tt><tt class="py-op">,</tt> <tt class="py-comment"># alt - Altitude in meters in AMSL altitude, not WGS84 if absolute or relative, above terrain if GLOBAL_TERRAIN_ALT_INT</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-comment"># X velocity in NED frame in m/s</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-comment"># Y velocity in NED frame in m/s</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-comment"># Z velocity in NED frame in m/s</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-comment"># afx, afy, afz acceleration (not supported yet, ignored in GCS_Mavlink)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt>    <tt class="py-comment"># yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-comment"># send command to vehicle</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">send_mavlink</tt><tt class="py-op">(</tt><tt class="py-name">msg</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="receive_messages_from_server"></a><div id="receive_messages_from_server-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="receive_messages_from_server-toggle" onclick="return toggle('receive_messages_from_server');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="client-module.html#receive_messages_from_server">receive_messages_from_server</a><tt class="py-op">(</tt><tt class="py-param">message</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="receive_messages_from_server-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="receive_messages_from_server-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Recoit des messages du serveur pendant la phase d'exploration</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-name">data</tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-20', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">recv</tt><tt class="py-op">(</tt><tt class="py-number">4096</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">machin</tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">loads</tt><tt class="py-op">(</tt><tt class="py-name">data</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">type</tt><tt class="py-op">(</tt><tt class="py-name">machin</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">bool</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">"[CLIENT] &gt;&gt; Message from Server: EVERYTHING IS CLEARED! CONGRATULATIONS!"</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-name">message</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">machin</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="arm_and_takeoff"></a><div id="arm_and_takeoff-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="arm_and_takeoff-toggle" onclick="return toggle('arm_and_takeoff');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="client-module.html#arm_and_takeoff">arm_and_takeoff</a><tt class="py-op">(</tt><tt class="py-param">vehicle</tt><tt class="py-op">,</tt> <tt class="py-param">aTargetAltitude</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="arm_and_takeoff-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="arm_and_takeoff-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Arme et pr&#233;pare le drone pour l'exploration</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">    @param vehicle: Drone</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">    @param aTargetAltitude: Altitude &#224; atteindre</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">    @type aTargetAltitude: int</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Basic pre-arm checks in process...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">    <tt class="py-comment"># Don't try to arm until autopilot is ready</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-keyword">not</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">is_armable</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Waiting for vehicle to initialise...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Arming motors'</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-comment"># Copter should arm in GUIDED mode</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">mode</tt> <tt class="py-op">=</tt> <tt class="py-name">VehicleMode</tt><tt class="py-op">(</tt><tt class="py-string">"GUIDED"</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">armed</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-comment"># Confirm vehicle armed before attempting to take off</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-keyword">not</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">armed</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Waiting for arming...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-comment"># on envoie des donnees pour indiquer que le robot est initialise</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-comment"># quand le serveur aura recu un message de tout le monde, il lancera l'algorithme</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-comment"># pendant ce temps, on fait voler le robot et le prochain message recu sera le tableau de coordonnees</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-name">Data</tt> <tt class="py-op">=</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">type</tt><tt class="py-op">(</tt><tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">alt</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt id="link-21" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-21', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">sendall</tt><tt class="py-op">(</tt><tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">dumps</tt><tt class="py-op">(</tt><tt class="py-name">Data</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Taking off!'</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">simple_takeoff</tt><tt class="py-op">(</tt><tt class="py-name">aTargetAltitude</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Take off to target altitude</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment"># Wait until the vehicle reaches a safe height before processing the goto</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt class="py-comment">#  (otherwise the command after Vehicle.simple_takeoff will execute</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">    <tt class="py-comment">#   immediately).</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-comment">#print(" Altitude: ", vehicle.location.global_relative_frame.alt)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-comment"># Break and return from function just below target altitude.</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">.</tt><tt class="py-name">global_relative_frame</tt><tt class="py-op">.</tt><tt class="py-name">alt</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">aTargetAltitude</tt> <tt class="py-op">*</tt> <tt class="py-number">0.95</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Reached target altitude!'</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Waiting for coordinates from the server...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">            <tt class="py-comment"># thread pour recevoir les messages du serveur (de la part des autres drones)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">            <tt class="py-name">start_new_thread</tt><tt class="py-op">(</tt><tt id="link-22" class="py-name" targets="Function client.receive_messages_from_server()=client-module.html#receive_messages_from_server"><a title="client.receive_messages_from_server" class="py-name" href="#" onclick="return doclink('link-22', 'receive_messages_from_server', 'link-22');">receive_messages_from_server</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="client.final_message" class="py-name" href="#" onclick="return doclink('link-23', 'final_message', 'link-7');">final_message</a></tt><tt class="py-op">,</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt class="py-comment"># on recoit les coordonnees du serveur</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">            <tt class="py-comment"># confirmation qu'il est connecte</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">            <tt class="py-name">Response</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-24', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">recv</tt><tt class="py-op">(</tt><tt class="py-number">4096</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt id="link-25" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-25', 'coordinates', 'link-1');">coordinates</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">loads</tt><tt class="py-op">(</tt><tt class="py-name">Response</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">            <tt id="link-26" class="py-name" targets="Function client.travel_vehicle_all_coordinates()=client-module.html#travel_vehicle_all_coordinates"><a title="client.travel_vehicle_all_coordinates" class="py-name" href="#" onclick="return doclink('link-26', 'travel_vehicle_all_coordinates', 'link-26');">travel_vehicle_all_coordinates</a></tt><tt class="py-op">(</tt><tt class="py-name">vehicle</tt><tt class="py-op">,</tt> <tt id="link-27" class="py-name"><a title="classes.coordinates" class="py-name" href="#" onclick="return doclink('link-27', 'coordinates', 'link-1');">coordinates</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt>
+<a name="check_for_final_message"></a><div id="check_for_final_message-def"><a name="L140"></a><tt class="py-lineno">140</tt> <a class="py-toggle" href="#" id="check_for_final_message-toggle" onclick="return toggle('check_for_final_message');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="client-module.html#check_for_final_message">check_for_final_message</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="check_for_final_message-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="check_for_final_message-expanded"><a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">    @summary: Thread v&#233;rifiant si le message envoy&#233; par le serveur est le dernier</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-28" class="py-name"><a title="client.final_message" class="py-name" href="#" onclick="return doclink('link-28', 'final_message', 'link-7');">final_message</a></tt> <tt class="py-op">==</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-comment"># parser arguments</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt id="link-29" class="py-name" targets="Variable client.parser=client-module.html#parser,Variable server.parser=server-module.html#parser"><a title="client.parser
+server.parser" class="py-name" href="#" onclick="return doclink('link-29', 'parser', 'link-29');">parser</a></tt> <tt class="py-op">=</tt> <tt class="py-name">argparse</tt><tt class="py-op">.</tt><tt class="py-name">ArgumentParser</tt><tt class="py-op">(</tt><tt class="py-name">description</tt><tt class="py-op">=</tt><tt class="py-string">"Connect drone"</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt id="link-30" class="py-name"><a title="client.parser
+server.parser" class="py-name" href="#" onclick="return doclink('link-30', 'parser', 'link-29');">parser</a></tt><tt class="py-op">.</tt><tt class="py-name">add_argument</tt><tt class="py-op">(</tt><tt class="py-string">'connect'</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"the url of the drone"</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="client.parser
+server.parser" class="py-name" href="#" onclick="return doclink('link-31', 'parser', 'link-29');">parser</a></tt><tt class="py-op">.</tt><tt class="py-name">parse_args</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt class="py-comment">#print(args.connect)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Waiting for a Connection...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt id="link-32" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-32', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt id="link-33" class="py-name"><a title="client.host
+server.host" class="py-name" href="#" onclick="return doclink('link-33', 'host', 'link-4');">host</a></tt><tt class="py-op">,</tt> <tt id="link-34" class="py-name"><a title="client.port
+server.port" class="py-name" href="#" onclick="return doclink('link-34', 'port', 'link-5');">port</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">socket</tt><tt class="py-op">.</tt><tt class="py-name">error</tt> <tt class="py-keyword">as</tt> <tt id="link-35" class="py-name" targets="Variable classes.coordinates.e=classes.coordinates-module.html#e"><a title="classes.coordinates.e" class="py-name" href="#" onclick="return doclink('link-35', 'e', 'link-35');">e</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-36" class="py-name"><a title="classes.coordinates.e" class="py-name" href="#" onclick="return doclink('link-36', 'e', 'link-35');">e</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt class="py-comment"># confirmation qu'il est connecte</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">    <tt class="py-name">Response</tt> <tt class="py-op">=</tt> <tt id="link-37" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-37', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">recv</tt><tt class="py-op">(</tt><tt class="py-number">4096</tt><tt class="py-op">)</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">Response</tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-comment"># broadcast: tout les robots sont connectes</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">    <tt class="py-name">Response</tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-38', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">recv</tt><tt class="py-op">(</tt><tt class="py-number">4096</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">Response</tt><tt class="py-op">)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">    <tt class="py-comment"># on envoie au serveur les coordonnees</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'[CLIENT] &gt;&gt; Drone is being connected...'</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">    <tt class="py-name">connection_string</tt> <tt class="py-op">=</tt> <tt class="py-name">args</tt><tt class="py-op">.</tt><tt class="py-name">connect</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt> <tt class="py-op">=</tt> <tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-name">connection_string</tt><tt class="py-op">,</tt> <tt class="py-name">wait_ready</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">airspeed</tt> <tt class="py-op">=</tt> <tt id="link-39" class="py-name"><a title="client.speed" class="py-name" href="#" onclick="return doclink('link-39', 'speed', 'link-6');">speed</a></tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">    <tt class="py-name">vehicle</tt><tt class="py-op">.</tt><tt class="py-name">groundspeed</tt> <tt class="py-op">=</tt> <tt id="link-40" class="py-name"><a title="client.speed" class="py-name" href="#" onclick="return doclink('link-40', 'speed', 'link-6');">speed</a></tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt id="link-41" class="py-name" targets="Function client.arm_and_takeoff()=client-module.html#arm_and_takeoff"><a title="client.arm_and_takeoff" class="py-name" href="#" onclick="return doclink('link-41', 'arm_and_takeoff', 'link-41');">arm_and_takeoff</a></tt><tt class="py-op">(</tt><tt class="py-name">vehicle</tt><tt class="py-op">,</tt> <tt class="py-number">20</tt><tt class="py-op">)</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-comment"># on lance le robot</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-comment"># une fois pret on envoie une notif au serveur</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">    <tt class="py-comment">#Response = ClientSocket.recv(4096)</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">     </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">    <tt id="link-42" class="py-name" targets="Function client.check_for_final_message()=client-module.html#check_for_final_message"><a title="client.check_for_final_message" class="py-name" href="#" onclick="return doclink('link-42', 'check_for_final_message', 'link-42');">check_for_final_message</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt id="link-43" class="py-name"><a title="client.ClientSocket" class="py-name" href="#" onclick="return doclink('link-43', 'ClientSocket', 'link-3');">ClientSocket</a></tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed May 26 00:58:16 2021
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
