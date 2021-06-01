@@ -19,10 +19,40 @@ De plus, vous allez devoir installer le projet [ardupilot](https://github.com/Ar
 
 Après avoir récupéré le projet d'Ardupilot, rendez-vous au dossier `ArduCopter` et assurez vous que la commande `../Tools/autotest/sim_vehicles.py` ne vous indique pas qu'il manque une installation spécifique (*dans le cas contraire, installez ce qui est nécessaire d'installer jusqu'à ce qu'il ne vous demande plus d'installer quoi que ce soit*).
 
+
 Une fois tout ceci fait, on peut passer à la compilation.
 
 **Partie incomplète, à éditer...**
 
 ## Compilation
 
-**Partie incomplète, à éditer...**
+-Test de ROS avec Turtlesim:
+Dans un terminal saisisez la commande `roscore`
+Dans un autre, saisissez `rosrun turtlesim turtlesim_node`
+
+ROS est bien installé si un fond bleu avec une tortue s'affichent à l'écran.
+
+-Installation de ardupilot
+Clonez le github cité précédemment
+Saisissez les commandes suivantes : 
+`cd ardupilot`
+`git submodule update --init --recursive`
+`cd /etc/drone/devel `
+`source setup.bash`
+
+# gazebo ros
+
+Saisissez ensuite les commandes suivantes dans le répertoire de ce projet : 
+
+`source /opt/ros/melodic/setup.bash`
+`source /usr/share/gazebo-9/setup.sh`
+`source /usr/share/gazebo/setup.sh`
+`export GAZEBO_MODEL_PATH=~/ectdrone/src/my_simulations/models`
+`export GAZEBO_RESOURCE_PATH=~/ectdrone/src/my_simulations/world:${GAZEBO_RESOURCE_PATH}`
+`source ardupilot/Tools/completion/completion.bash`
+`source ~/ectdrone/devel/setup.bash`
+
+Pour vérifier que votre installation est fonctionnelle, saisissez la commande suivante : 
+`roslaunch my_simulations ardupilot_2_drones.launch`
+
+Cela devrait lancer la simulation avec Gazebo
