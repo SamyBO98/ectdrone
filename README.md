@@ -40,7 +40,7 @@ Saisissez les commandes suivantes :
 `cd /etc/drone/devel `
 `source setup.bash`
 
-# gazebo ros
+# Setup de gazebo
 
 Saisissez ensuite les commandes suivantes dans le répertoire de ce projet : 
 
